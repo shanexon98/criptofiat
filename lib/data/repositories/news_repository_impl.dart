@@ -4,10 +4,11 @@ import '../../domain/entities/news_article.dart';
 import '../../domain/repositories/news_repository.dart';
 
 class NewsRepositoryImpl implements NewsRepository {
-  final String apiUrl = 'https://min-api.cryptocompare.com/data/v2/news/?lang=ES';
+  final String baseUrl = 'https://min-api.cryptocompare.com/data/v2/news/?lang=';
 
   @override
-  Future<List<NewsArticle>> getNews() async {
+  Future<List<NewsArticle>> getNews({required String language}) async {
+    final String apiUrl = baseUrl + language;
     try {
       final response = await http.get(Uri.parse(apiUrl));
       

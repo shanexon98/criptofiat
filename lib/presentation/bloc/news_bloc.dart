@@ -5,7 +5,10 @@ import '../../domain/repositories/news_repository.dart';
 // Events
 abstract class NewsEvent {}
 
-class LoadNews extends NewsEvent {}
+class LoadNews extends NewsEvent {
+  final String language;
+  LoadNews({required this.language});
+}
 
 // States
 abstract class NewsState {}
@@ -34,7 +37,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     on<LoadNews>((event, emit) async {
       emit(NewsLoading());
       try {
-        final news = await newsRepository.getNews();
+        final news = await newsRepository.getNews(language: event.language);
         emit(NewsLoaded(news));
       } catch (e) {
         emit(NewsError(e.toString()));
