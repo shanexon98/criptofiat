@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:criptofiat/presentation/screens/currency_exchange_screen.dart';
+import 'package:criptofiat/presentation/screens/home_screen.dart';
 import 'package:criptofiat/presentation/bloc/currency_exchange_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       Future.delayed(const Duration(seconds: 1), () {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const CurrencyExchangeScreen(),
+            builder: (context) => const HomeScreen(),
           ),
         );
       });
