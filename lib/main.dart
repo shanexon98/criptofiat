@@ -23,7 +23,7 @@ void setupDependencies() {
 
 void main() {
   setupDependencies(); // Initialize dependencies first
-  
+
   runApp(
     BlocProvider(
       create: (context) => getIt<CurrencyExchangeBloc>()..add(LoadCurrencyRates()),

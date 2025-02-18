@@ -5,6 +5,7 @@ import 'package:criptofiat/presentation/screens/news_screen.dart';
 import 'package:criptofiat/presentation/theme/color_schemes.dart';
 import 'package:criptofiat/data/repositories/news_repository_impl.dart';
 import 'package:criptofiat/presentation/bloc/news_bloc.dart';
+import 'package:criptofiat/presentation/screens/donation_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: const NewsScreen(),
           ),
+          const DonationScreen(),
         ],
       ),
       bottomNavigationBar: Container(
@@ -56,6 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.newspaper),
               label: 'News',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.volunteer_activism),
+              label: 'Donate',
             ),
           ],
         ),

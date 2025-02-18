@@ -11,4 +11,4 @@ PRODUCT_NAME = criptofiat
 PRODUCT_BUNDLE_IDENTIFIER = com.cryptofiat.criptofiat
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2025 com.cryptofiat. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2025 com.cryptofiat.criptofiat. All rights reserved.

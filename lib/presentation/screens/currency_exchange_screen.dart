@@ -13,7 +13,8 @@ class CurrencyExchangeScreen extends StatefulWidget {
 }
 
 class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
-  final TextEditingController _amountController = TextEditingController(text: '1.0');
+  final TextEditingController _amountController =
+      TextEditingController(text: '1.0');
   final NumberFormat _numberFormat = NumberFormat('#,##0.00', 'en_US');
 
   @override
@@ -31,7 +32,6 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: BlocBuilder<CurrencyExchangeBloc, CurrencyExchangeState>(
         builder: (context, state) {
           if (state is CurrencyExchangeLoading) {
@@ -46,24 +46,25 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
             return SingleChildScrollView(
               child: Container(
                 decoration: BoxDecoration(
-                        gradient: ColorSchemes.purpleGradient,
-                      ),
+                  gradient: ColorSchemes.purpleGradient,
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 80.0, bottom: 30),
-                        child: Text('CryptoFiat Exchange', style: TextStyle( 
-                          fontWeight: FontWeight.bold,
-                          fontSize: 34
-                        ),),
+                        child: Text(
+                          'CryptoFiat Exchange',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 30),
+                        ),
                       ),
-                      
                       const SizedBox(height: 16),
                       TextField(
                         controller: _amountController,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           labelText: 'Amount',
@@ -71,40 +72,53 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
                             icon: const Icon(Icons.clear),
                             onPressed: () {
                               _amountController.clear();
-                              context.read<CurrencyExchangeBloc>().add(UpdateAmount(0.0));
+                              context
+                                  .read<CurrencyExchangeBloc>()
+                                  .add(UpdateAmount(0.0));
                             },
                           ),
                         ),
                         style: const TextStyle(fontSize: 18),
                         onChanged: (value) {
-                          final amount = double.tryParse(value.replaceAll(',', '.')) ?? 0.0;
-                          context.read<CurrencyExchangeBloc>().add(UpdateAmount(amount));
+                          final amount =
+                              double.tryParse(value.replaceAll(',', '.')) ??
+                                  0.0;
+                          context
+                              .read<CurrencyExchangeBloc>()
+                              .add(UpdateAmount(amount));
                         },
                       ),
-                                        const SizedBox(height: 40),
-                
+                      const SizedBox(height: 20),
                       _buildCurrencySelector(
                         label: 'From',
                         selectedCurrency: state.currencyPair.fromCurrency,
-                        currencies: state.cryptoCurrencies.contains(state.currencyPair.fromCurrency)
+                        currencies: state.cryptoCurrencies
+                                .contains(state.currencyPair.fromCurrency)
                             ? state.cryptoCurrencies
                             : state.fiatCurrencies,
                         onChanged: (currency) {
                           if (currency != null) {
-                            context.read<CurrencyExchangeBloc>().add(UpdateFromCurrency(currency));
+                            context
+                                .read<CurrencyExchangeBloc>()
+                                .add(UpdateFromCurrency(currency));
                           }
                         },
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withOpacity(0.5),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         padding: const EdgeInsets.all(8),
                         child: IconButton(
                           onPressed: () {
-                            context.read<CurrencyExchangeBloc>().add(SwapCurrencies());
+                            context
+                                .read<CurrencyExchangeBloc>()
+                                .add(SwapCurrencies());
                             _amountController.text = _numberFormat
                                 .format(state.currencyPair.convertedAmount)
                                 .replaceAll(',', '.');
@@ -116,20 +130,23 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 20),
                       _buildCurrencySelector(
                         label: 'To',
                         selectedCurrency: state.currencyPair.toCurrency,
-                        currencies: state.fiatCurrencies.contains(state.currencyPair.toCurrency)
+                        currencies: state.fiatCurrencies
+                                .contains(state.currencyPair.toCurrency)
                             ? state.fiatCurrencies
                             : state.cryptoCurrencies,
                         onChanged: (currency) {
                           if (currency != null) {
-                            context.read<CurrencyExchangeBloc>().add(UpdateToCurrency(currency));
+                            context
+                                .read<CurrencyExchangeBloc>()
+                                .add(UpdateToCurrency(currency));
                           }
                         },
                       ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 20),
                       Card(
                         elevation: 8,
                         shape: RoundedRectangleBorder(
@@ -142,22 +159,35 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                               colors: [
-                                Theme.of(context).colorScheme.surface.withOpacity(0.7),
-                                Theme.of(context).colorScheme.surface.withOpacity(0.2),
+                                Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(0.7),
+                                Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withOpacity(0.2),
                               ],
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24.0, vertical: 32.0),
                             child: Column(
                               children: [
                                 Text(
                                   'Converted Amount',
-                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.9),
-                                    letterSpacing: 1.2,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface
+                                            .withOpacity(0.9),
+                                        letterSpacing: 1.2,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                 ),
                                 const SizedBox(height: 24),
                                 Row(
@@ -165,41 +195,61 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
                                   children: [
                                     Text(
                                       '${state.currencyPair.toCurrency} ',
-                                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                                        letterSpacing: 0.5,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.7),
+                                            letterSpacing: 0.5,
+                                          ),
                                     ),
                                     AnimatedFlipCounter(
                                       value: state.currencyPair.convertedAmount,
-                                      duration: const Duration(milliseconds: 500),
+                                      duration:
+                                          const Duration(milliseconds: 500),
                                       fractionDigits: 5,
                                       thousandSeparator: ',',
-                                      textStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: 32,
-                                        letterSpacing: 0.5,
-                                      ),
+                                      textStyle: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontSize: 32,
+                                            letterSpacing: 0.5,
+                                          ),
                                     ),
                                   ],
                                 ),
                                 const SizedBox(height: 24),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 12),
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .surface
+                                        .withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(
-                                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.1),
                                     ),
                                   ),
                                   child: Text(
                                     '${state.currencyPair.fromCurrency} = ${_numberFormat.format(state.currencyPair.rate)} ${state.currencyPair.toCurrency}',
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      color: Colors.white,
-                                      letterSpacing: 0.5,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          letterSpacing: 0.5,
+                                        ),
                                   ),
                                 ),
                               ],
